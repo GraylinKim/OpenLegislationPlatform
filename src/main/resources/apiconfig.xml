@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<apiconfig>
+	<component>
+	    <name>version</name>
+	    <match>(?:1\.0|1\.2|1\.6|2\.0)</match>
+	</component>
+	
+	<component>
+	    <name>otype</name>
+	    <match>(?:bill|vote|action|person)</match>
+	</component>
+	
+	<component>
+	    <name>id</name>
+	    <match>.+?</match>
+	</component>
+	
+	<component>
+	    <name>format</name>
+	    <match>(?:xml|json)</match>
+	</component>
+	
+	<component>
+	    <name>term</name>
+	    <match>.+?</match>
+	</component>
+	
+	<mapping>
+		<name>getById</name>
+	    <url>/api/(${version})/(${otype})/(${id})\.(${format})/?</url>
+	    <query>otype:${otype} AND id:${id}</query>
+	    <validators>
+	        <validator class="gov.nysenate.openleg.validators.collections" />
+	    </validators>
+	</mapping>
+	
+	<mapping>
+		<name>searchAll</name>
+	    <url>/api/(${version})/search.(${format})/(${term})</url>
+	    <query>${term}</query>
+	</mapping>
+	
+	<mapping>
+		<name>searchOtype</name>
+	    <url>/api/(${version})/(${otype})/search.(${format})/(${term})</url>
+	    <query>otype:${otype} AND ${term}</query>
+	</mapping>
+        
+</apiconfig>

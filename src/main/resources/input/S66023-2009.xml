@@ -1,0 +1,66 @@
+<bill document="true">
+    <defaultsearch xml_exclude="true">S66023-2009 66023 2009 One Bill to Bind them A bit of garbage in here John Adams Jr.</defaultsearch>    
+    
+    <id>S66023-2009</id>
+    <url solr_exclude="true">/bill/S66023-2009</url>
+    <billnum>S66023</billnum>
+    <session>2009</session>
+    <title>One Bill to Bind them</title>
+    <summary>A bit of garbage in here</summary>
+    <text>Lots of Garbage in Here</text>
+    
+    <sponsor solr_value="ADAMS-2009">
+        <id>ADAMS-2009</id>
+        <url solr_exclude="true">/person/ADAMS-2009</url>
+        <lastname>ADAMS</lastname>
+        <firstname>JOHN</firstname>
+        <fullname>John Adams Jr.</fullname>
+    </sponsor>
+    
+    <actions solr_container="true">
+        <action document="true">
+            <id>S66023-action-08:02:2010-REF2FINANCE</id>
+            <url solr_exclude="true">/action/S66023-action-08:02:2010-REF2FINANCE</url>
+            <text>Referred to Finance</text>
+            <date>08-02-2010</date>
+            <time>14:35:00</time>
+        </action>
+        <action document="true">
+            <id>S66023-action-08:04:2010-1STREADING</id>
+            <url solr_exclude="true">/action/S66023-action-08:04:2010-1STREADING</url>
+            <text>First Reading</text>
+            <date>08-04-2010</date>
+            <time>12:12:00</time>
+        </action>
+    </actions>
+    
+    <votes solr_container="true">
+        <vote document="true">
+            <id>S66023-vote-08:02:2010-Finance</id>
+            <url solr_exclude="true">/vote/S66023-vote-08:02:2010-Finance-ADAMS</url>
+            <type>committee</type>
+            <committee>Finance</committee>
+            <total solr_value="16">
+                <aye>13</aye>
+                <nay>2</nay>
+                <other>1</other>
+            </total>
+            <status>PASSED</status>
+            <votes solr_container="true">
+                <ballot>
+                    <id>S66023-vote-08:02:2010-Finance-ADAMS</id>
+                    <url solr_exclude="true">/voteitem/S66023-vote-08:02:2010-Finance-ADAMS</url>
+                    <voter>
+                        <id>ADAMS-2009</id>
+                        <url solr_exclude="true">/person/ADAMS-2009</url>
+                        <lastname>ADAMS</lastname>
+                        <firstname>JOHN</firstname>
+                        <fullname>John Adams Jr.</fullname>
+                    </voter>
+                    <type>AYE</type>
+                </ballot>
+            </votes>
+            <date>08-02-2010</date>
+        </vote>
+    </votes>
+</bill>
