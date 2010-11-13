@@ -3,20 +3,22 @@ package org.openleg.platform.parsers;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class XmlParser {
+public class XmlUtil {
 	
 	public static void main(String[] args) {
-		XmlParser.printDocument(XmlParser.getXmlDocument("/home/graylin/RCOS/input/ADAMS-2009.xml"));
+		XmlUtil.printDocument(XmlUtil.getXmlDocument("/home/graylin/RCOS/input/ADAMS-2009.xml"));
 	}
 	
 	public static Document getXmlDocument(String filename) {
@@ -34,7 +36,7 @@ public class XmlParser {
 		return null;
 	}
 	
-	public Document newXmlDocument() {
+	public static Document newXmlDocument() {
 		try {
 			Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 			return doc;
@@ -83,8 +85,7 @@ public class XmlParser {
 
 	}
 	
-	
-	public Document buildDocument(Document input) {
+	public static Document buildDocument(Document input) {
 		try {
 			Document output = newXmlDocument();
 			Element inputRoot = input.getDocumentElement();
@@ -98,7 +99,7 @@ public class XmlParser {
 		}
 	}
 	
-	public void buildChildren(Document doc,Node input,Node output) {
+	public static void buildChildren(Document doc,Node input,Node output) {
 		Node child;
 		Node newChild;
 		
@@ -117,4 +118,37 @@ public class XmlParser {
 		}
 	}
 
+	public static boolean isFlagSet(Node node, String attribute) {
+		String value = attributeValue(node,attribute);
+		if( value != null )
+			return value.equalsIgnoreCase("true");
+		return false;
+	}
+	
+	public static String attributeValue(Node node, String attribute) {
+		
+		NamedNodeMap attrs = node.getAttributes();
+		if(attrs == null)
+			return null;
+		
+		Node attr = attrs.getNamedItem(attribute);
+		if(attr == null)
+			return null;
+		
+		return attr.getNodeValue();
+	}
+	
+	public static ArrayList<Node> getChildElements(Node node) {
+		NodeList children = node.getChildNodes();
+		
+		//This gets all NON TEXT_NODE children
+		ArrayList<Node> ret = new ArrayList<Node>();
+		for(int n = 0; n < children.getLength(); n++) {
+			Node child = children.item(n);
+			if(child.getNodeType() != Node.TEXT_NODE)
+				ret.add(child);
+		}
+		
+		return ret;
+	}
 }

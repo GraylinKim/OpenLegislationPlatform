@@ -20,7 +20,7 @@ import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
-import org.openleg.platform.parsers.XmlParser;
+import org.openleg.platform.parsers.XmlUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -107,7 +107,7 @@ public class ApiServlet extends HttpServlet {
 	public void load(String filename) {
 		
 		//Grab the document root of the file to load
-		Element root = XmlParser.getXmlDocument(filename).getDocumentElement();
+		Element root = XmlUtil.getXmlDocument(filename).getDocumentElement();
 		
 		/* Load all the components into memory */
 		NodeList components = root.getElementsByTagName("component");

@@ -25,7 +25,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class InputParser extends XmlParser {
+public class InputParser extends XmlUtil {
 
 	public ArrayList<HashMap<String,ArrayList<String>>> documents;
 	
