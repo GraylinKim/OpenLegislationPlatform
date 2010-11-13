@@ -3,8 +3,10 @@ package org.openleg.platform.parsers.handlers.defaults;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.openleg.platform.parsers.NodeState;
 import org.openleg.platform.parsers.ParsedDocument;
 import org.openleg.platform.parsers.XmlUtil;
+import org.openleg.platform.parsers.NewInputParser.ParserConfiguration.Flag;
 import org.openleg.platform.parsers.handlers.InputProcessor;
 import org.openleg.platform.parsers.handlers.NodeFlagHandler;
 import org.openleg.platform.parsers.handlers.TreeFlagHandler;
@@ -13,55 +15,34 @@ import org.w3c.dom.Node;
 @SuppressWarnings("unused")
 class DefaultProcessor implements InputProcessor {
 	
-	public void processNode(Node inputNode, String nodeString, Node outputNode, ParsedDocument doc) {
-		
-		String value;
-		HashMap<String,String> flags;
-		
-		String nodeValue;
-		String nodeName;
-		boolean writeSolr;
-		boolean writeXml;
-		
+	public void processNode(Node inputNode, String schemaString, Node outputNode, ParsedDocument doc) {
 		/**
 		 * This be Tricky Business in here.
 		 * Need to make this part simple and abstracted so others can
-		 * implement processors without too much of a hassel
+		 * implement processors without too much of a hassle
 		 */
 		//Add our name to the nodeString
-		if(!nodeString.isEmpty())
-			nodeString += ".";
-		nodeString += inputNode.getNodeName();
+		schemaString += ((!schemaString.isEmpty()) ? "." : "") +inputNode.getNodeName();
 		
-		//Execute Effects from Parent Tree Flags
-		flags = doc.getParentTreeFlags(nodeString);
-		for(String flag : flags.keySet()) {
-			value = flags.get(flag);
-			TreeFlagHandler processor = doc.getTreeFlagHandler(flag);
-		}
+		NodeState state = new NodeState(inputNode,schemaString,doc);
 		
-		//Execute Effects from Local Tree Flags
-		flags = doc.getNodeTreeFlags(nodeString);
-		for(String flag : flags.keySet()) {
-			value = flags.get(flag);
-			TreeFlagHandler processor = doc.getTreeFlagHandler(flag);
+		ArrayList<Flag> treeFlags = doc.getTreeFlags(schemaString);
+		HashMap<String,Flag> nodeFlags = doc.getNodeFlags(schemaString);
+		
+		//Evaluate the treeFlags first, in order
+		for(Flag flag : treeFlags) {
 			
 		}
 		
-		//Execute Effects from Local Node Flags
-		flags = doc.getNodeNodeFlags(nodeString);
-		for(String flag : flags.keySet()) {
-			value = flags.get(flag);
-			NodeFlagHandler processor = doc.getNodeFlagHandler(flag);
+		//Then apply the node effects
+		for(Flag flag : nodeFlags.values()) {
+			
 		}
-		/**
-		 * Tricky Business ends around here
-		 */
 		
 		//Handle all the child nodes recursively, look for new processors at every node
 		for(Node inputChild : XmlUtil.getChildElements(inputNode)) {
 			Node newChild = doc.createElement(inputNode.getNodeName());
-			doc.getNodeProcessor(inputChild).processNode(inputChild,nodeString,newChild,doc);
+			doc.getNodeProcessor(schemaString).processNode(inputChild,schemaString,newChild,doc);
 			outputNode.appendChild(newChild);
 		}
 	}

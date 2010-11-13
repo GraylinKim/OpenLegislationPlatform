@@ -14,6 +14,7 @@ public class NodeState {
 	public boolean writeXml;
 	public boolean writeSolr;
 	
+	public String schemaString;
 	
 	public HashMap<String,String> treeFlags;
 	public HashMap<String,String> nodeFlags;

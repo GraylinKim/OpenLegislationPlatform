@@ -16,12 +16,24 @@ import java.util.TreeSet;
 public class NewInputParser {
 	
 	public class ParserConfiguration {
+		
+		public class Flag {
+			
+			public String name;
+			public String value;
+			
+			public Flag(String name,String value) {
+				this.name = name;
+				this.value = value;
+			}
+		}
+		
 		public TreeSet<String> schemas;
 		public HashMap<String,InputProcessor> inputProcessors;
 		public HashMap<String,TreeFlagHandler> treeFlagHandlers;
 		public HashMap<String,NodeFlagHandler> nodeFlagHandlers;
-		public HashMap<String,HashMap<String,HashMap<String,String>>> treeFlags;
-		public HashMap<String,HashMap<String,HashMap<String,String>>> nodeFlags;
+		public HashMap<String,HashMap<String,ArrayList<Flag>>> treeFlags;
+		public HashMap<String,HashMap<String,HashMap<String,Flag>>> nodeFlags;
 	}
 	
 	public ArrayList<ParsedDocument> documents;
@@ -38,7 +50,7 @@ public class NewInputParser {
 	public void processFileNode(Node node, ParserConfiguration configuration) {
 		
 		//Start a document if its marked a document on our schema map or if the input has markings
-		if(configuration.schemas.contains(node.getNodeName()) || XmlUtil.isFlagSet(node,"document")) {
+		if(configuration.schemas.contains(node.getNodeName())) {
 			documents.add( new ParsedDocument(node,configuration) );
 		}
 		
