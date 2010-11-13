@@ -151,4 +151,14 @@ public class XmlUtil {
 		
 		return ret;
 	}
+	
+	public static boolean isLeafNode(Node leaf) {
+		NodeList children = leaf.getChildNodes();
+		if(children.getLength() == 0)
+			return true;
+		else if(children.getLength() == 1)
+			return (children.item(0).getNodeType() == Node.TEXT_NODE);
+		else
+			return false;
+	}
 }
