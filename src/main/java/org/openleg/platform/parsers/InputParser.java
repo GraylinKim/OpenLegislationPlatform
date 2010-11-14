@@ -17,11 +17,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
-import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrInputDocument;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -306,39 +304,10 @@ public class InputParser extends XmlUtil {
 		outputRoot.appendChild(newChild);
 	}
 	
-	public boolean isFlagSet(Node node, String attribute) {
-		String value = attributeValue(node,attribute);
-		if( value != null )
-			return value.equalsIgnoreCase("true");
-		return false;
-	}
-	
-	public String attributeValue(Node node, String attribute) {
-		
-		NamedNodeMap attrs = node.getAttributes();
-		if(attrs == null)
-			return null;
-		
-		Node attr = attrs.getNamedItem(attribute);
-		if(attr == null)
-			return null;
-		
-		return attr.getNodeValue();
-	}
-	
 	public String extendPrefix(String prefix, Node node) {
 		if(prefix.length()==0)
 			return node.getNodeName()+".";
 		return prefix+node.getNodeName()+".";
 	}
 	
-	public boolean isLeafNode(Node leaf) {
-		NodeList children = leaf.getChildNodes();
-		if(children.getLength() == 0)
-			return true;
-		else if(children.getLength() == 1)
-			return (children.item(0).getNodeType() == Node.TEXT_NODE);
-		else
-			return false;
-	}
 }

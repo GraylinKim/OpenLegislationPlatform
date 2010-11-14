@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
 
 public class ParsedDocument {
 	
-	protected Document xml;
+	public Document xml;
 	protected HashMap<String,ArrayList<String>> solr;
 	
 	protected HashMap<String,InputProcessor> inputProcessors;
@@ -39,8 +39,7 @@ public class ParsedDocument {
 
 		//Process the root element and append the rests to the output tree
 		String schemaString = inputRoot.getNodeName();
-		Node outputRoot = xml.createElement(inputRoot.getNodeName());
-		getNodeProcessor(schemaString).processNode(inputRoot,"",outputRoot,this);
+		Node outputRoot = getNodeProcessor(schemaString).processNode(inputRoot,"",this);
 		xml.appendChild(outputRoot);
 	}
 	
@@ -74,7 +73,6 @@ public class ParsedDocument {
 	
 	public NodeState getNodeState(Node localNode, String schemaString) { return new NodeState(localNode,schemaString,this);	}
 	
-	/*
 	public void addSolrField(String prefix, String name, String value) {
 		name = prefix+name;
 		ArrayList<String> values = solr.get(name);
@@ -85,5 +83,4 @@ public class ParsedDocument {
 		values.add(value);
 		solr.put(name, values);
 	}
-	 */
 }
