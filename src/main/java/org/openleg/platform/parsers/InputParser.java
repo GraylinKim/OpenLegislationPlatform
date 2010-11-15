@@ -20,11 +20,11 @@ public class InputParser {
 	public static void main(String[] args) {
 		ParserConfiguration config = new ParserConfiguration(
 				"src/main/resources/input/config.xml",
-				"src/main/resources/input/documents/S66023-2009.xml"
+				"src/main/resources/input/documents/a1800.schm"
 			);
 		
 		System.out.println("Lets get this started!");
-		new InputParser("src/main/resources/input/documents/S66023-2009.xml",config);
+		new InputParser("src/main/resources/input/documents/a1800.xml",config);
 	}
 	
 	public ArrayList<ParsedDocument> documents;

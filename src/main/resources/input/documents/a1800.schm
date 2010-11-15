@@ -1,0 +1,51 @@
+<bill document="true" serialization="custom">
+  <bill solr_container="true">
+    <default solr_container="true">
+      <sortIndex xml_exclude="true" solr_exclude="true">1001</sortIndex>
+      <amendments xml_exclude="true" solr_exclude="true"></amendments>
+      <actions document="true">
+        <billevent serialization="custom">
+          <billevent solr_container="true">
+            <default solr_container="true">
+            </default>
+          </billevent>
+        </billevent>
+      </actions>
+      <cosponsors >
+        <cosponsor solr_container="true" serialization="custom">
+          <cosponsor document="true">
+            <default>
+              <position xml_exclude="true" solr_exclude="true"></position>
+            </default>
+          </cosponsor>
+        </cosponsor>
+      </cosponsors>
+      <sponsor document="true" serialization="custom">
+        <cosponsor solr_container="true">
+          <default solr_container="true">
+          </default>
+        </cosponsor>
+      </sponsor>
+      <votes>
+        <vote solr_container="true" serialization="custom">
+          <vote document="true">
+            <default solr_container="true">
+              <abstains>
+              	<string></string>
+              </abstains>
+              <ayes>
+                <string></string>
+              </ayes>
+              <excused>
+                <string></string>
+              </excused>
+              <nays>
+              	<string></string>
+              </nays>
+            </default>
+          </vote>
+        </vote>
+      </votes>
+    </default>
+  </bill>
+</bill>

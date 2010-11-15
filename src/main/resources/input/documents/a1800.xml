@@ -1,0 +1,377 @@
+<bill serialization="custom">
+  <bill>
+    <default>
+      <sortIndex>1800</sortIndex>
+      <year>2009</year>
+      <amendments>
+        <bill reference="../../../.."/>
+      </amendments>
+      <actions>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1231736400000-referred+to+aging</billEventId>
+              <eventDate>2009-01-12 00:00:00.0 EST</eventDate>
+              <eventText>referred to aging</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1233032400000-reported+referred+to+ways+and+means</billEventId>
+              <eventDate>2009-01-27 00:00:00.0 EST</eventDate>
+              <eventText>reported referred to ways and means</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1240286400000-reported</billEventId>
+              <eventDate>2009-04-21 00:00:00.0 EDT</eventDate>
+              <eventText>reported</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1240459200000-advanced+to+third+reading+cal.364</billEventId>
+              <eventDate>2009-04-23 00:00:00.0 EDT</eventDate>
+              <eventText>advanced to third reading cal.364</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1240804800000-passed+assembly</billEventId>
+              <eventDate>2009-04-27 00:00:00.0 EDT</eventDate>
+              <eventText>passed assembly</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1240804800000-delivered+to+senate</billEventId>
+              <eventDate>2009-04-27 00:00:00.0 EDT</eventDate>
+              <eventText>delivered to senate</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1240804800000-REFERRED+TO+FINANCE</billEventId>
+              <eventDate>2009-04-27 00:00:00.0 EDT</eventDate>
+              <eventText>REFERRED TO FINANCE</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1242705600000-SUBSTITUTED+FOR+S2210</billEventId>
+              <eventDate>2009-05-19 00:00:00.0 EDT</eventDate>
+              <eventText>SUBSTITUTED FOR S2210</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1242705600000-3RD+READING+CAL.294</billEventId>
+              <eventDate>2009-05-19 00:00:00.0 EDT</eventDate>
+              <eventText>3RD READING CAL.294</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1243915200000-PASSED+SENATE</billEventId>
+              <eventDate>2009-06-02 00:00:00.0 EDT</eventDate>
+              <eventText>PASSED SENATE</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1248235200000-vetoed+memo.12</billEventId>
+              <eventDate>2009-07-22 00:00:00.0 EDT</eventDate>
+              <eventText>vetoed memo.12</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1243915200000-RETURNED+TO+ASSEMBLY</billEventId>
+              <eventDate>2009-06-02 00:00:00.0 EDT</eventDate>
+              <eventText>RETURNED TO ASSEMBLY</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1247198400000-delivered+to+governor</billEventId>
+              <eventDate>2009-07-10 00:00:00.0 EDT</eventDate>
+              <eventText>delivered to governor</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1248148800000-vetoed+memo.12</billEventId>
+              <eventDate>2009-07-21 00:00:00.0 EDT</eventDate>
+              <eventText>vetoed memo.12</eventText>
+            </default>
+          </billevent>
+        </billevent>
+        <billevent serialization="custom">
+          <billevent>
+            <default>
+              <billEventId>A1800-1248235200000-tabled</billEventId>
+              <eventDate>2009-07-22 00:00:00.0 EDT</eventDate>
+              <eventText>tabled</eventText>
+            </default>
+          </billevent>
+        </billevent>
+      </actions>
+      <cosponsors>
+        <cosponsor serialization="custom">
+          <cosponsor>
+            <default>
+              <fullname>Englebright</fullname>
+              <id>Englebright-</id>
+              <position></position>
+            </default>
+          </cosponsor>
+        </cosponsor>
+        <cosponsor serialization="custom">
+          <cosponsor>
+            <default>
+              <fullname>Zebrowski</fullname>
+              <id>Zebrowski-</id>
+              <position></position>
+            </default>
+          </cosponsor>
+        </cosponsor>
+        <cosponsor serialization="custom">
+          <cosponsor>
+            <default>
+              <fullname>Rivera J</fullname>
+              <id>Rivera J-</id>
+              <position></position>
+            </default>
+          </cosponsor>
+        </cosponsor>
+        <cosponsor serialization="custom">
+          <cosponsor>
+            <default>
+              <fullname>Pheffer</fullname>
+              <id>Pheffer-</id>
+              <position></position>
+            </default>
+          </cosponsor>
+        </cosponsor>
+        <cosponsor serialization="custom">
+          <cosponsor>
+            <default>
+              <fullname>Jaffee</fullname>
+              <id>Jaffee-</id>
+              <position></position>
+            </default>
+          </cosponsor>
+        </cosponsor>
+      </cosponsors>
+      <committee>FINANCE</committee>
+      <text>
+                           S T A T E   O F   N E W   Y O R K
+       ________________________________________________________________________
+
+                                         1800
+
+                              2009-2010 Regular Sessions
+
+                                 I N  A S S E M B L Y
+
+                                   January 12, 2009
+                                      ___________
+
+       Introduced  by  M.  of  A.  DINOWITZ, ENGLEBRIGHT, ZEBROWSKI, J. RIVERA,
+         EDDINGTON, GREENE, PHEFFER -- Multi-Sponsored by -- M. of  A.  ALFANO,
+         BRENNAN,  COLTON,  DIAZ,  FARRELL, GOTTFRIED, HOOPER, MAISEL, McENENY,
+         REILLY, SWEENEY, TITONE, WALKER --  read  once  and  referred  to  the
+         Committee on Aging
+
+       AN  ACT  to  amend  the  real property tax law, in relation to excluding
+         certain expenditures for medical care from the definition of  &quot;income&quot;
+         for  the purpose of a tax abatement for rent-controlled and rent regu-
+         lated property occupied by senior citizens
+
+         THE PEOPLE OF THE STATE OF NEW YORK, REPRESENTED IN SENATE AND  ASSEM-
+       BLY, DO ENACT AS FOLLOWS:
+
+    1    Section  1.  Paragraph c of subdivision 1 of section 467-b of the real
+    2  property tax law, as amended by chapter 500 of  the  laws  of  2001,  is
+    3  amended to read as follows:
+    4    c.  &quot;Income&quot;  means  income  from  all  sources after deduction of all
+    5  income and social  security  taxes  and  includes  social  security  and
+    6  retirement  benefits,  supplemental security income and additional state
+    7  payments, public assistance benefits, interest,  dividends,  net  rental
+    8  income,  salary  or  earnings,  and net income from self-employment, but
+    9  shall not include gifts or inheritances, payments  made  to  individuals
+   10  because  of  their  status as victims of Nazi persecution, as defined in
+   11  P.L. 103-286, or increases in benefits accorded pursuant to  the  social
+   12  security  act  or  a public or private pension paid to any member of the
+   13  household which increase, in any given year, does not exceed the consum-
+   14  er price index (all items United States  city  average)  for  such  year
+   15  which take effect after the date of eligibility of head of the household
+   16  receiving  benefits hereunder whether received by the head of the house-
+   17  hold or any other member of the household  AND ANY SUCH INCOME SHALL  BE
+   18  OFFSET BY ALL MEDICAL AND PRESCRIPTION DRUG EXPENSES ACTUALLY PAID WHICH
+   19  WERE  NOT REIMBURSED OR PAID FOR BY INSURANCE, IF THE GOVERNING BOARD OF
+
+        EXPLANATION--Matter in ITALICS (underscored) is new; matter in brackets
+                             [ ] is old law to be omitted.
+                                                                  LBD03233-01-9
+
+       A. 1800                             2
+
+    1  A MUNICIPALITY, AFTER A PUBLIC HEARING, ADOPTS A LOCAL LAW, ORDINANCE OR
+    2  RESOLUTION PROVIDING THEREFOR;
+    3    S 2. Paragraph f of subdivision 1 of section 467-c of the real proper-
+    4  ty tax law, as amended by chapter 500 of the laws of 2001, is amended to
+    5  read as follows:
+    6    f.  &quot;Income&quot;  means income received by the eligible head of the house-
+    7  hold combined with the income of all other members of the household from
+    8  all sources after deduction of all income and social security taxes  and
+    9  includes  without  limitation,  social security and retirement benefits,
+   10  supplemental security  income  and  additional  state  payments,  public
+   11  assistance  benefits, interest, dividends, net rental income, salary and
+   12  earnings, and net income from self employment,  but  shall  not  include
+   13  gifts  or  inheritances,  payments  made to individuals because of their
+   14  status as victims of Nazi persecution as defined in  P.L.  103-286,  nor
+   15  increases  in benefits accorded pursuant to the social security act or a
+   16  public or private pension paid to any  member  of  the  household  which
+   17  increase,  in  any  given year, does not exceed the consumer price index
+   18  (all items United States city average) for such year which  take  effect
+   19  after  the eligibility date of an eligible head of the household receiv-
+   20  ing benefits hereunder whether received by  the  eligible  head  of  the
+   21  household  or  any  other  member  of the household  AND ANY SUCH INCOME
+   22  SHALL BE OFFSET BY ALL MEDICAL AND PRESCRIPTION DRUG  EXPENSES  ACTUALLY
+   23  PAID  WHICH WERE NOT REIMBURSED OR PAID FOR BY INSURANCE, IF THE GOVERN-
+   24  ING BOARD OF A MUNICIPALITY, AFTER A PUBLIC HEARING, ADOPTS A LOCAL LAW,
+   25  ORDINANCE OR RESOLUTION PROVIDING THEREFOR.  When the eligible  head  of
+   26  the  household  has  retired on or after the commencement of the taxable
+   27  period and prior to the  date  of  making  an  application  for  a  rent
+   28  increase  exemption  order/tax  abatement  certificate  pursuant to this
+   29  section, such person&apos;s income shall be adjusted by excluding  salary  or
+   30  earnings  and projecting such person&apos;s retirement income over the entire
+   31  taxable period.
+   32    S 3. This act shall take effect immediately, provided that the  amend-
+   33  ment  to paragraph c of subdivision 1 of section 467-b of the real prop-
+   34  erty tax law, made by section one of this  act,  shall  not  affect  the
+   35  expiration of such section and shall be deemed to expire therewith.
+</text>
+      <lawSection>Real Property Tax Law</lawSection>
+      <sameAs>S2210</sameAs>
+      <senateId>A1800</senateId>
+      <sponsor serialization="custom">
+        <cosponsor>
+          <default>
+            <fullname>Dinowitz</fullname>
+            <id>Dinowitz-</id>
+            <position></position>
+          </default>
+        </cosponsor>
+      </sponsor>
+      <title>Includes in definition of income all sources after deduction of all medical and prescription drugs not reimbursed or paid by insurance</title>
+      <votes>
+        <vote serialization="custom">
+          <vote>
+            <default>
+              <voteType>1</voteType>
+              <abstains/>
+              <ayes>
+                <string>ADAMS</string>
+                <string>ADDABBO</string>
+                <string>ALESI</string>
+                <string>AUBERTINE</string>
+                <string>BONACIC</string>
+                <string>BRESLIN</string>
+                <string>DEFRANCISCO</string>
+                <string>DIAZ</string>
+                <string>DILAN</string>
+                <string>DUANE</string>
+                <string>ESPADA</string>
+                <string>FARLEY</string>
+                <string>FLANAGAN</string>
+                <string>FOLEY</string>
+                <string>FUSCHILLO</string>
+                <string>GOLDEN</string>
+                <string>GRIFFO</string>
+                <string>HANNON</string>
+                <string>HASSELL-THOMPSON</string>
+                <string>HUNTLEY</string>
+                <string>JOHNSON C</string>
+                <string>JOHNSON O</string>
+                <string>KLEIN</string>
+                <string>KRUEGER</string>
+                <string>KRUGER</string>
+                <string>LANZA</string>
+                <string>LAVALLE</string>
+                <string>LEIBELL</string>
+                <string>LIBOUS</string>
+                <string>LITTLE</string>
+                <string>MARCELLINO</string>
+                <string>MAZIARZ</string>
+                <string>MCDONALD</string>
+                <string>MONSERRATE</string>
+                <string>MONTGOMERY</string>
+                <string>MORAHAN</string>
+                <string>NOZZOLIO</string>
+                <string>ONORATO</string>
+                <string>OPPENHEIMER</string>
+                <string>PADAVAN</string>
+                <string>PARKER</string>
+                <string>PERKINS</string>
+                <string>RANZENHOFER</string>
+                <string>ROBACH</string>
+                <string>SALAND</string>
+                <string>SAMPSON</string>
+                <string>SAVINO</string>
+                <string>SCHNEIDERMAN</string>
+                <string>SERRANO</string>
+                <string>SEWARD</string>
+                <string>SKELOS</string>
+                <string>SMITH</string>
+                <string>SQUADRON</string>
+                <string>STACHOWSKI</string>
+                <string>STAVISKY</string>
+                <string>STEWART-COUSINS</string>
+                <string>THOMPSON</string>
+                <string>VALESKY</string>
+                <string>VOLKER</string>
+                <string>WINNER</string>
+                <string>YOUNG</string>
+              </ayes>
+              <excused>
+                <string>LARKIN</string>
+              </excused>
+              <id>1243915200000A1800-61-0</id>
+              <nays/>
+              <voteDate>2009-06-02 00:00:00.0 EDT</voteDate>
+            </default>
+          </vote>
+        </vote>
+      </votes>
+    </default>
+  </bill>
+</bill>
