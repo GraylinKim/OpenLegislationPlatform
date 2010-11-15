@@ -81,7 +81,12 @@ public class NodeState {
 		
 		//Get the flags from the document schema
 		nodeFlags = document.getNodeFlags(schemaString);
+		if(nodeFlags == null)
+			nodeFlags = new HashMap<String,Flag>();
+		
 		treeFlags = document.getTreeFlags(schemaString);
+		if(treeFlags == null)
+			treeFlags = new ArrayList<Flag>();
 	}
 	
 	public InputProcessor nodeProcessor() {
