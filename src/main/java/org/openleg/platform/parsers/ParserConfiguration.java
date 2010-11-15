@@ -184,16 +184,21 @@ public class ParserConfiguration {
 	}
 	
 	public void buildSchemas(Node root) {
+		buildSchemas(root,"");
+	}
+	public void buildSchemas(Node root,String schemaString) {
+		schemaString += ((schemaString.isEmpty()) ? "": "." )+root.getNodeName();
+		
 		if(XmlUtil.isFlagSet(root, "document")) {
 			HashMap<String,HashMap<String,Flag>> flagMap = new HashMap<String,HashMap<String,Flag>>();
 			buildSchema(root, "", flagMap);
 			this.nodeFlags.put(root.getNodeName(), flagMap);
-			this.schemas.add(root.getNodeName());
+			this.schemas.add(schemaString);
 		}
 		
 		//recurse through the subtree
 		for(Node child : XmlUtil.getChildElements(root)) {
-			buildSchemas(child);
+			buildSchemas(child,schemaString);
 		}
 	}
 
