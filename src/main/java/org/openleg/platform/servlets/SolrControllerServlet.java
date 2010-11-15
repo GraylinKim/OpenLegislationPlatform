@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
-import org.openleg.platform.parsers.InputParser;
+//import org.openleg.platform.parsers.InputParser;
 
 @SuppressWarnings("serial")
 public class SolrControllerServlet extends HttpServlet {
@@ -49,9 +49,9 @@ public class SolrControllerServlet extends HttpServlet {
 			} else if (command.equals("index")) {
 				String filename = tokens.nextToken();
 				
-				InputParser input = new InputParser(fileBase+filename+".xml");
+				//InputParser input = new InputParser(fileBase+filename+".xml");
 				try {
-					server.add(input.getSolrDocuments());
+					//server.add(input.getSolrDocuments());
 					server.commit();
 					out.println("Indexing of "+filename+" complete");
 				} catch (MalformedURLException e) {

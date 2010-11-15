@@ -7,7 +7,7 @@ import java.util.HashMap;
 import org.openleg.platform.parsers.NodeState;
 import org.openleg.platform.parsers.ParsedDocument;
 import org.openleg.platform.parsers.XmlUtil;
-import org.openleg.platform.parsers.NewInputParser.ParserConfiguration.Flag;
+import org.openleg.platform.parsers.ParserConfiguration.Flag;
 import org.openleg.platform.parsers.handlers.InputProcessor;
 import org.openleg.platform.parsers.handlers.NodeFlagHandler;
 import org.openleg.platform.parsers.handlers.TreeFlagHandler;

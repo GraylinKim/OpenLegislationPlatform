@@ -169,20 +169,18 @@ public class XmlUtil {
 	public static String getChildValue(Node node,String childName) {
 		NodeList children = ((Element)node).getElementsByTagName(childName);
 		
-		if(children.getLength()==0) {
+		if(children.getLength()==1) {
 			Node child = children.item(0);
 			if(XmlUtil.isLeafNode(child)) {
 				return child.getFirstChild().getNodeValue().trim();
 			} else {
 				//Error!!! Should be a leaf node
+				System.out.println("Child: "+child.getNodeName()+" must be a leaf node");
 			}
 		} else {
 			//Error!!! Should only have 1 match
+			System.out.println("There should only 1 one child matching: "+childName);
 		}
 		return null;
-		for(int i=0; i < children.getLength(); i++) {
-			
-		}
-		
 	}
 }

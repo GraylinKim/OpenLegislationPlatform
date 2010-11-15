@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeSet;
 
-import org.openleg.platform.parsers.NewInputParser.ParserConfiguration;
-import org.openleg.platform.parsers.NewInputParser.ParserConfiguration.Flag;
+import org.openleg.platform.parsers.ParserConfiguration;
+import org.openleg.platform.parsers.ParserConfiguration.Flag;
 import org.openleg.platform.parsers.handlers.InputProcessor;
 import org.openleg.platform.parsers.handlers.NodeFlagHandler;
 import org.openleg.platform.parsers.handlers.TreeFlagHandler;

@@ -1,32 +1,24 @@
 <config>
-	<processors>
-		<processor>
-			<name>default</name>
-			<class>org.openleg.platform.parsers.handlers.defaults.DefaultProcessor</class>
-		</processor>
-	</processors>
+	<processor>
+		<name>default</name>
+		<class>org.openleg.platform.parsers.handlers.defaults.DefaultProcessor</class>
+	</processor>
 
-	<flagHandlers>
-		<treeFlagHandlers />
-		
-		<nodeFlagHandlers>
-			<nodeFlagHandler>
-				<name>solr_container</name>
-				<class>org.openleg.platform.parsers.handlers.defaults.SolrContainerFlagHandler</class>
-			</nodeFlagHandler>
-			<nodeFlagHandler>
-				<name>solr_value</name>
-				<class>org.openleg.platform.parsers.handlers.defaults.SolrValueFlagHandler</class>
-			</nodeFlagHandler>
-						<nodeFlagHandler>
-				<name>solr_exclude</name>
-				<class>org.openleg.platform.parsers.handlers.defaults.SolrExcludeFlagHandler</class>
-			</nodeFlagHandler>
-			<nodeFlagHandler>
-				<name>xml_exclude</name>
-				<class>org.openleg.platform.parsers.handlers.defaults.XmlExcludeFlagHandler</class>
-			</nodeFlagHandler>
-		</nodeFlagHandlers>
-	</flagHandlers>
-	
+	<nodeFlagHandler>
+		<name>solr_container</name>
+		<class>org.openleg.platform.parsers.handlers.defaults.SolrContainerFlagHandler</class>
+	</nodeFlagHandler>
+	<nodeFlagHandler>
+		<name>solr_value</name>
+		<class>org.openleg.platform.parsers.handlers.defaults.SolrValueFlagHandler</class>
+	</nodeFlagHandler>
+				<nodeFlagHandler>
+		<name>solr_exclude</name>
+		<class>org.openleg.platform.parsers.handlers.defaults.SolrExcludeFlagHandler</class>
+	</nodeFlagHandler>
+	<nodeFlagHandler>
+		<name>xml_exclude</name>
+		<class>org.openleg.platform.parsers.handlers.defaults.XmlExcludeFlagHandler</class>
+	</nodeFlagHandler>
+
 </config>
