@@ -35,18 +35,18 @@ public class DefaultProcessor implements InputProcessor {
 		}
 	}
 	
-	public void applyChildStateFlags(NodeState childState) {
+	public void applyChildStateFlags(NodeState nodeState, NodeState childState) {
 		
-		for(Flag flag : childState.treeFlags) {
-			TreeFlagHandler handler = childState.getTreeFlagHandler(flag);
+		for(Flag flag : nodeState.treeFlags) {
+			TreeFlagHandler handler = nodeState.getTreeFlagHandler(flag);
 			if(handler!=null)
 				handler.processChildState(childState, flag.value);
 		}
 		
-		for(Flag flag : childState.nodeFlags.values()) {
-			NodeFlagHandler handler = childState.getNodeFlagHandler(flag);
+		for(Flag flag : nodeState.nodeFlags.values()) {
+			NodeFlagHandler handler = nodeState.getNodeFlagHandler(flag);
 			if(handler!=null)
-				childState.getNodeFlagHandler(flag).processChildState(childState, flag.value);
+				nodeState.getNodeFlagHandler(flag).processChildState(childState, flag.value);
 		}
 	}
 	
@@ -55,7 +55,11 @@ public class DefaultProcessor implements InputProcessor {
 		//Use flags to modify the state
 		applyNodeStateFlags(nodeState);
 		
+		if(node.getNodeName().equals("votes")) {
+			String breakPoint = "here";
+		}
 		Node output = null;
+		//System.out.println(nodeState.writeName+" has writeXML as:"+nodeState.writeXml);
 		if(nodeState.writeXml) {
 			
 			if(XmlUtil.isLeafNode(node)) {
@@ -71,13 +75,15 @@ public class DefaultProcessor implements InputProcessor {
 			} else {
 				
 				output = xml.createElement(nodeState.writeName);
+				System.out.println("Created element: "+nodeState.writeName);
 				for( Node child : XmlUtil.getChildElements(node)) {
 					NodeState childState = new NodeState(child,nodeState);
 					
 					//Use flags to modify child state
-					applyChildStateFlags(childState);
+					applyChildStateFlags(nodeState,childState);
 					
 					Node outputChild = childState.nodeProcessor().processXml(child, childState, xml);
+					
 					
 					//Use flags to modify the child
 					
@@ -86,6 +92,8 @@ public class DefaultProcessor implements InputProcessor {
 							((Element)output).setAttributeNode((Attr)outputChild);
 						else
 							output.appendChild(outputChild);
+					} else {
+						System.out.println("\tWhich has a null child");
 					}
 				}
 			}
@@ -110,7 +118,7 @@ public class DefaultProcessor implements InputProcessor {
 				NodeState childState = new NodeState(child,nodeState);
 				
 				//Use flags to modify child state
-				applyChildStateFlags(childState);
+				applyChildStateFlags(nodeState,childState);
 				
 				childState.nodeProcessor().processSolr(child, childState, solr);
 			}

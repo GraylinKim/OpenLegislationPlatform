@@ -14,7 +14,7 @@ public class SolrExcludeFlagHandler implements NodeFlagHandler {
 	@Override
 	public void processNodeState(NodeState state, String value) {
 		if(value.equals("true"))
-			state.solrExclude = false;
+			state.solrExclude = true;
 	}
 
 }
