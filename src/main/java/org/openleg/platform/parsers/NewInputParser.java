@@ -1,5 +1,6 @@
 package org.openleg.platform.parsers;
 
+import org.openleg.platform.parsers.NewInputParser.ParserConfiguration.Flag;
 import org.openleg.platform.parsers.handlers.InputProcessor;
 import org.openleg.platform.parsers.handlers.NodeFlagHandler;
 import org.openleg.platform.parsers.handlers.TreeFlagHandler;
@@ -15,7 +16,7 @@ import java.util.TreeSet;
 @SuppressWarnings("unused")
 public class NewInputParser {
 	
-	public class ParserConfiguration {
+	public static class ParserConfiguration {
 		
 		public class Flag {
 			
@@ -34,6 +35,18 @@ public class NewInputParser {
 		public HashMap<String,NodeFlagHandler> nodeFlagHandlers;
 		public HashMap<String,HashMap<String,ArrayList<Flag>>> treeFlags;
 		public HashMap<String,HashMap<String,HashMap<String,Flag>>> nodeFlags;
+	}
+	
+	public static void main(String[] args) {
+		ParserConfiguration config = new ParserConfiguration();
+		config.inputProcessors = new HashMap<String,InputProcessor>();
+		config.treeFlagHandlers = new HashMap<String,TreeFlagHandler>();
+		config.nodeFlagHandlers = new HashMap<String,NodeFlagHandler>();
+		config.treeFlags = new HashMap<String,HashMap<String,ArrayList<Flag>>>();
+		HashMap<String,ArrayList<Flag>> emptyTreeFlags = new HashMap<String,ArrayList<Flag>>();
+		config.treeFlags.put("bill", new HashMap<String,ArrayList<Flag>>());
+		config.nodeFlags = new HashMap<String,HashMap<String,HashMap<String,Flag>>>();
+		
 	}
 	
 	public ArrayList<ParsedDocument> documents;

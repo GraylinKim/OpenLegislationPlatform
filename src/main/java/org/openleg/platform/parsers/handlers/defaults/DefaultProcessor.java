@@ -23,19 +23,19 @@ class DefaultProcessor implements InputProcessor {
 	public void applyNodeStateFlags(NodeState nodeState) {
 		
 		for(Flag flag : nodeState.treeFlags)
-			nodeState.getTreeFlagHandler(flag).processNodeState(nodeState);
+			nodeState.getTreeFlagHandler(flag).processNodeState(nodeState, flag.value);
 		
 		for(Flag flag : nodeState.nodeFlags.values())
-			nodeState.getNodeFlagHandler(flag).processNodeState(nodeState);
+			nodeState.getNodeFlagHandler(flag).processNodeState(nodeState, flag.value);
 	}
 	
 	public void applyChildStateFlags(NodeState childState) {
 		
 		for(Flag flag : childState.treeFlags)
-			childState.getTreeFlagHandler(flag).processChildState(childState);
+			childState.getTreeFlagHandler(flag).processChildState(childState, flag.value);
 		
 		for(Flag flag : childState.nodeFlags.values())
-			childState.getNodeFlagHandler(flag).processChildState(childState);
+			childState.getNodeFlagHandler(flag).processChildState(childState, flag.value);
 	}
 	
 	public Node processXml(Node node, NodeState nodeState, Document xml) {
