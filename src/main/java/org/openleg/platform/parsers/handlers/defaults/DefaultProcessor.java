@@ -1,6 +1,7 @@
 package org.openleg.platform.parsers.handlers.defaults;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.openleg.platform.parsers.NodeState;
@@ -19,64 +20,91 @@ import org.w3c.dom.NodeList;
 @SuppressWarnings("unused")
 class DefaultProcessor implements InputProcessor {
 	
-	public Node processNode(Node inputNode, NodeState state, ParsedDocument doc) {
+	public void applyNodeStateFlags(NodeState nodeState) {
 		
-		//Evaluate the treeFlags first, in order
-		for(Flag flag : state.treeFlags) {
-			state = doc.getTreeFlagHandler(flag.name).process(state);
-		}
+		for(Flag flag : nodeState.treeFlags)
+			nodeState.getTreeFlagHandler(flag).processNodeState(nodeState);
 		
-		//Then apply the node effects
-		for(Flag flag : state.nodeFlags.values()) {
-			state = doc.getTreeFlagHandler(flag.name).process(state);
-		}
-				
-		//Write the node according to the state
-		if(state.writeSolr) {
-			doc.addSolrField(state.solrPrefix, state.writeName, state.writeValue);
-		}
+		for(Flag flag : nodeState.nodeFlags.values())
+			nodeState.getNodeFlagHandler(flag).processNodeState(nodeState);
+	}
+	
+	public void applyChildStateFlags(NodeState childState) {
 		
-		Node outputNode = null;
+		for(Flag flag : childState.treeFlags)
+			childState.getTreeFlagHandler(flag).processChildState(childState);
 		
-		//Leaf nodes are the end of the line, no more recursion
-		if(XmlUtil.isLeafNode(inputNode)) {
+		for(Flag flag : childState.nodeFlags.values())
+			childState.getNodeFlagHandler(flag).processChildState(childState);
+	}
+	
+	public Node processXml(Node node, NodeState nodeState, Document xml) {
+		
+		//Use flags to modify the state
+		applyNodeStateFlags(nodeState);
+		
+		Node output = null;
+		if(nodeState.writeXml) {
 			
-			if(state.writeXml) {
-				if(state.writeAsAttribute)
-					outputNode = doc.xml.createAttribute(state.writeName);
-				else
-					outputNode = doc.xml.createElement(state.writeName);
+			if(XmlUtil.isLeafNode(node)) {
 				
-				outputNode.setNodeValue(state.writeValue);
-			}
-			
-		//Inner nodes should recurse through the rest of the document
-		} else {
-
-			//Handle all the child nodes recursively, look for new processors at every node
-			outputNode = doc.xml.createElement(state.writeName);
-			for(Node inputChild : XmlUtil.getChildElements(inputNode)) {
-				NodeState childState = new NodeState(inputChild,state);
-				Node childNode = doc.getNodeProcessor(state.schemaString).processNode(inputChild,childState,doc);
+					if(nodeState.writeAsAttribute) {
+						output = xml.createAttribute(nodeState.writeName);
+					} else {
+						output = xml.createElement(nodeState.writeName);
+					}
+					
+					output.setNodeValue(nodeState.writeValue);
 				
-				//If the child wrote to XML
-				if( childNode != null) {
+			} else {
+				
+				output = xml.createElement(nodeState.writeName);
+				for( Node child : XmlUtil.getChildElements(node)) {
+					NodeState childState = new NodeState(child,nodeState);
 					
-					//Attach the child node as either an attribute or a child
-					if(childNode.getNodeType()==Node.ATTRIBUTE_NODE)
-						((Element)outputNode).setAttributeNode((Attr)childNode);
-					else
-						outputNode.appendChild(childNode);
+					//Use flags to modify child state
+					applyChildStateFlags(childState);
 					
+					Node outputChild = childState.nodeProcessor().processXml(child, childState, xml);
+					
+					//Use flags to modify the child
+					
+					if(outputChild != null) {
+						if(outputChild.getNodeType()==Node.ATTRIBUTE_NODE)
+							((Element)output).setAttributeNode((Attr)outputChild);
+						else
+							output.appendChild(outputChild);
+					}
 				}
 			}
 			
+			//Use flags to modify the tree
 		}
 		
-		//If the XML should be written, return it, else null
-		if(state.writeXml)
-			return outputNode;
-		else
-			return null;
+		return output;
 	}
+	
+	public void processSolr(Node node, NodeState nodeState, HashMap<String,ArrayList<String>> solr) {
+		
+		//Use flags to modify the state
+		applyNodeStateFlags(nodeState);
+		
+		if(nodeState.writeSolr) {
+			
+			solr.put(nodeState.solrPrefix+nodeState.writeName, (ArrayList<String>)Arrays.asList(nodeState.writeValue) );
+			
+			for(Node child : XmlUtil.getChildElements(node)) {
+				NodeState childState = new NodeState(child,nodeState);
+				
+				//Use flags to modify child state
+				applyChildStateFlags(childState);
+				
+				childState.nodeProcessor().processSolr(child, childState, solr);
+			}
+			
+		}
+		
+		//Use flags to somehow modify the solr document?
+	}
+	
 }

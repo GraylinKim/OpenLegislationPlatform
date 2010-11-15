@@ -22,6 +22,36 @@ public class ParsedDocument {
 	protected HashMap<String,ArrayList<Flag>> treeFlags;
 	protected HashMap<String,HashMap<String,Flag>> nodeFlags;
 	
+	public ParsedDocument(Node root, ParserConfiguration configuration) {
+		
+		//Create the internal documents
+		xml = XmlUtil.newXmlDocument();
+		solr = new HashMap<String,ArrayList<String>>();
+
+		//Copy the configuration over
+		inputProcessors = configuration.inputProcessors;
+		treeFlagHandlers = configuration.treeFlagHandlers;
+		nodeFlagHandlers = configuration.nodeFlagHandlers;
+		
+		//Get the flag maps for this document
+		nodeFlags = configuration.nodeFlags.get(root.getNodeName());
+		treeFlags = configuration.treeFlags.get(root.getNodeName());		
+
+		//Process the root element and append the rests to the output tree
+		NodeState initialState = new NodeState(root,this);
+		InputProcessor processor = initialState.nodeProcessor();
+		
+		processor.processSolr(root,initialState,solr);
+		xml.appendChild(processor.processXml(root, initialState, xml));
+	}
+	
+	public TreeFlagHandler getTreeFlagHandler(String flag) { return treeFlagHandlers.get(flag); }
+	public NodeFlagHandler getNodeFlagHandler(String flag) { return nodeFlagHandlers.get(flag); }
+	
+	public ArrayList<Flag> getTreeFlags(String schemaString) { return treeFlags.get(schemaString); }
+	public HashMap<String,Flag> getNodeFlags(String schemaString) { return nodeFlags.get(schemaString); }
+	
+	/*
 	public ParsedDocument(Node inputRoot, ParserConfiguration configuration) {
 		
 		//Create the internal documents
@@ -41,25 +71,6 @@ public class ParsedDocument {
 		String schemaString = inputRoot.getNodeName();
 		Node outputRoot = getNodeProcessor(schemaString).processNode(inputRoot,"",this);
 		xml.appendChild(outputRoot);
-	}
-	
-	public InputProcessor getNodeProcessor(String schemaString) {
-		
-		HashMap<String,Flag> flags = nodeFlags.get(schemaString);
-		Flag processorFlag = flags.get("processor");
-		
-		String processorName;
-		if(processorFlag==null)
-			processorName="default";
-		else
-			processorName=processorFlag.value;
-		
-		//return the indicated processor if it exists
-		InputProcessor processor = inputProcessors.get(processorName);
-		if(processor == null)
-			System.out.println("FATAL ERROR: No default processor defined");
-		
-		return processor;
 	}
 	
 	public Node createElement(String name) { return xml.createElement(name); }
@@ -83,4 +94,5 @@ public class ParsedDocument {
 		values.add(value);
 		solr.put(name, values);
 	}
+	*/
 }

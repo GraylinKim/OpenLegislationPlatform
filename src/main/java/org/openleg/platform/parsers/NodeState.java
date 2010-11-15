@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.openleg.platform.parsers.NewInputParser.ParserConfiguration.Flag;
+import org.openleg.platform.parsers.handlers.InputProcessor;
+import org.openleg.platform.parsers.handlers.NodeFlagHandler;
+import org.openleg.platform.parsers.handlers.TreeFlagHandler;
 import org.w3c.dom.Node;
 
 public class NodeState {
@@ -25,7 +28,10 @@ public class NodeState {
 	public ArrayList<Flag> treeFlags;
 	public HashMap<String,Flag> nodeFlags;		
 	
-	protected ParsedDocument document;
+	public ParsedDocument document;
+	
+	public TreeFlagHandler getTreeFlagHandler(Flag flag) { return document.treeFlagHandlers.get(flag.name); }
+	public NodeFlagHandler getNodeFlagHandler(Flag flag) { return document.nodeFlagHandlers.get(flag.name); }
 	
 	public NodeState(Node node, ParsedDocument doc) {
 		
@@ -69,5 +75,23 @@ public class NodeState {
 		//Get the flags from the document schema
 		nodeFlags = document.getNodeFlags(schemaString);
 		treeFlags = document.getTreeFlags(schemaString);
+	}
+	
+	public InputProcessor nodeProcessor() {
+		
+		Flag processorFlag = nodeFlags.get("processor");
+		
+		String processorName;
+		if(processorFlag==null)
+			processorName="default";
+		else
+			processorName=processorFlag.value;
+		
+		//return the indicated processor if it exists
+		InputProcessor processor = document.inputProcessors.get(processorName);
+		if(processor == null)
+			System.out.println("FATAL ERROR: No default processor defined");
+		
+		return processor;
 	}
 }
