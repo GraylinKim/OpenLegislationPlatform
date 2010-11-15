@@ -22,8 +22,12 @@ public class XmlUtil {
 	}
 	
 	public static Document getXmlDocument(String filename) {
+		return getXmlDocument(new File(filename));
+	}
+	
+	public static Document getXmlDocument(File file) {
 		try {
-			return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File(filename));
+			return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -160,5 +164,25 @@ public class XmlUtil {
 			return (children.item(0).getNodeType() == Node.TEXT_NODE);
 		else
 			return false;
+	}
+	
+	public static String getChildValue(Node node,String childName) {
+		NodeList children = ((Element)node).getElementsByTagName(childName);
+		
+		if(children.getLength()==0) {
+			Node child = children.item(0);
+			if(XmlUtil.isLeafNode(child)) {
+				return child.getFirstChild().getNodeValue().trim();
+			} else {
+				//Error!!! Should be a leaf node
+			}
+		} else {
+			//Error!!! Should only have 1 match
+		}
+		return null;
+		for(int i=0; i < children.getLength(); i++) {
+			
+		}
+		
 	}
 }
