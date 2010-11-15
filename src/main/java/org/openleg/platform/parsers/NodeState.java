@@ -21,6 +21,7 @@ public class NodeState {
 	
 	//Solr State
 	public boolean writeSolr;
+	public boolean solrExclude;
 	public String solrPrefix;
 	
 	public String schemaString;
@@ -47,7 +48,11 @@ public class NodeState {
 		
 		//Extend the old state
 		this.document = oldState.document;
-		solrPrefix = oldState.solrPrefix+"."+oldState.writeName;
+		if(oldState.solrPrefix.isEmpty())
+			solrPrefix = oldState.writeName;
+		else
+			solrPrefix = oldState.solrPrefix+"."+oldState.writeName;
+		
 		schemaString = oldState.schemaString+"."+node.getNodeName();
 		
 		generalInit(node);
@@ -58,6 +63,7 @@ public class NodeState {
 		//Some general defaults
 		writeXml = true;
 		writeAsAttribute = false;
+		solrExclude = false;
 		writeName = node.getNodeName();
 		
 		//Default write flags for inner and leaf nodes

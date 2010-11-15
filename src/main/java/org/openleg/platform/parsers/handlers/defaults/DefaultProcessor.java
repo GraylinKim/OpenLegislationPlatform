@@ -18,24 +18,36 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 @SuppressWarnings("unused")
-class DefaultProcessor implements InputProcessor {
+public class DefaultProcessor implements InputProcessor {
 	
 	public void applyNodeStateFlags(NodeState nodeState) {
 		
-		for(Flag flag : nodeState.treeFlags)
-			nodeState.getTreeFlagHandler(flag).processNodeState(nodeState, flag.value);
+		for(Flag flag : nodeState.treeFlags) {
+			TreeFlagHandler handler = nodeState.getTreeFlagHandler(flag);
+			if(handler!=null)
+				handler.processNodeState(nodeState, flag.value);
+		}
 		
-		for(Flag flag : nodeState.nodeFlags.values())
-			nodeState.getNodeFlagHandler(flag).processNodeState(nodeState, flag.value);
+		for(Flag flag : nodeState.nodeFlags.values()) {
+			NodeFlagHandler handler = nodeState.getNodeFlagHandler(flag);
+			if(handler!=null)
+				handler.processNodeState(nodeState, flag.value);
+		}
 	}
 	
 	public void applyChildStateFlags(NodeState childState) {
 		
-		for(Flag flag : childState.treeFlags)
-			childState.getTreeFlagHandler(flag).processChildState(childState, flag.value);
+		for(Flag flag : childState.treeFlags) {
+			TreeFlagHandler handler = childState.getTreeFlagHandler(flag);
+			if(handler!=null)
+				handler.processChildState(childState, flag.value);
+		}
 		
-		for(Flag flag : childState.nodeFlags.values())
-			childState.getNodeFlagHandler(flag).processChildState(childState, flag.value);
+		for(Flag flag : childState.nodeFlags.values()) {
+			NodeFlagHandler handler = childState.getNodeFlagHandler(flag);
+			if(handler!=null)
+				childState.getNodeFlagHandler(flag).processChildState(childState, flag.value);
+		}
 	}
 	
 	public Node processXml(Node node, NodeState nodeState, Document xml) {
@@ -50,11 +62,11 @@ class DefaultProcessor implements InputProcessor {
 				
 					if(nodeState.writeAsAttribute) {
 						output = xml.createAttribute(nodeState.writeName);
+						output.setNodeValue(nodeState.writeValue);
 					} else {
 						output = xml.createElement(nodeState.writeName);
+						output.appendChild(xml.createTextNode(nodeState.writeValue));
 					}
-					
-					output.setNodeValue(nodeState.writeValue);
 				
 			} else {
 				
@@ -89,9 +101,10 @@ class DefaultProcessor implements InputProcessor {
 		//Use flags to modify the state
 		applyNodeStateFlags(nodeState);
 		
-		if(nodeState.writeSolr) {
+		if(nodeState.solrExclude == false) {
 			
-			solr.put(nodeState.solrPrefix+nodeState.writeName, (ArrayList<String>)Arrays.asList(nodeState.writeValue) );
+			if(nodeState.writeSolr)
+				solr.put(nodeState.solrPrefix+"."+nodeState.writeName, new ArrayList<String>(Arrays.asList(nodeState.writeValue)) );
 			
 			for(Node child : XmlUtil.getChildElements(node)) {
 				NodeState childState = new NodeState(child,nodeState);

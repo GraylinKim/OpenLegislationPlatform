@@ -4,6 +4,7 @@ import org.openleg.platform.parsers.NewInputParser.ParserConfiguration.Flag;
 import org.openleg.platform.parsers.handlers.InputProcessor;
 import org.openleg.platform.parsers.handlers.NodeFlagHandler;
 import org.openleg.platform.parsers.handlers.TreeFlagHandler;
+import org.openleg.platform.parsers.handlers.defaults.DefaultProcessor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -40,13 +41,15 @@ public class NewInputParser {
 	public static void main(String[] args) {
 		ParserConfiguration config = new ParserConfiguration();
 		config.inputProcessors = new HashMap<String,InputProcessor>();
+		config.inputProcessors.put("default",new DefaultProcessor());
 		config.treeFlagHandlers = new HashMap<String,TreeFlagHandler>();
 		config.nodeFlagHandlers = new HashMap<String,NodeFlagHandler>();
 		config.treeFlags = new HashMap<String,HashMap<String,ArrayList<Flag>>>();
-		HashMap<String,ArrayList<Flag>> emptyTreeFlags = new HashMap<String,ArrayList<Flag>>();
-		config.treeFlags.put("bill", new HashMap<String,ArrayList<Flag>>());
 		config.nodeFlags = new HashMap<String,HashMap<String,HashMap<String,Flag>>>();
+		config.schemas = new TreeSet<String>(Arrays.asList("bill","vote","action"));
 		
+		System.out.println("Lets get this started!");
+		new NewInputParser("/home/openleg/OpenLegislationPlatform/src/main/resources/input/documents/S66023-2009.xml",config);
 	}
 	
 	public ArrayList<ParsedDocument> documents;

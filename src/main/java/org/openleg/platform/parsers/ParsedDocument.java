@@ -2,6 +2,7 @@ package org.openleg.platform.parsers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeSet;
 
 import org.openleg.platform.parsers.NewInputParser.ParserConfiguration;
 import org.openleg.platform.parsers.NewInputParser.ParserConfiguration.Flag;
@@ -43,13 +44,35 @@ public class ParsedDocument {
 		
 		processor.processSolr(root,initialState,solr);
 		xml.appendChild(processor.processXml(root, initialState, xml));
+		XmlUtil.printNode(xml.getDocumentElement());
+		for(String key : new TreeSet<String>(solr.keySet())) {
+			for(String value : solr.get(key)) {
+				System.out.println(key+": "+value);
+			}
+		}
 	}
 	
-	public TreeFlagHandler getTreeFlagHandler(String flag) { return treeFlagHandlers.get(flag); }
-	public NodeFlagHandler getNodeFlagHandler(String flag) { return nodeFlagHandlers.get(flag); }
+	public TreeFlagHandler getTreeFlagHandler(String flag) {
+		if(treeFlagHandlers!=null)
+			return treeFlagHandlers.get(flag);
+		return null;
+	}
+	public NodeFlagHandler getNodeFlagHandler(String flag) {
+		if(nodeFlagHandlers!=null)
+			return nodeFlagHandlers.get(flag);
+		return null;
+	}
 	
-	public ArrayList<Flag> getTreeFlags(String schemaString) { return treeFlags.get(schemaString); }
-	public HashMap<String,Flag> getNodeFlags(String schemaString) { return nodeFlags.get(schemaString); }
+	public ArrayList<Flag> getTreeFlags(String schemaString) {
+		if(treeFlags != null)
+			return treeFlags.get(schemaString);
+		return new ArrayList<Flag>();
+	}
+	public HashMap<String,Flag> getNodeFlags(String schemaString) {
+		if(nodeFlags != null)
+			return nodeFlags.get(schemaString);
+		return new HashMap<String,Flag>();
+	}
 	
 	/*
 	public ParsedDocument(Node inputRoot, ParserConfiguration configuration) {
