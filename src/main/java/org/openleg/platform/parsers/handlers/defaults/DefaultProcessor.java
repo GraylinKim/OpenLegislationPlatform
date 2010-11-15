@@ -104,9 +104,16 @@ public class DefaultProcessor implements InputProcessor {
 		
 		if(nodeState.solrExclude == false) {
 			
-			if(nodeState.writeSolr)
-				solr.put(nodeState.solrPrefix+"."+nodeState.writeName, new ArrayList<String>(Arrays.asList(nodeState.writeValue)) );
-			
+			if(nodeState.writeSolr) {
+				String fieldName = nodeState.solrPrefix+"."+nodeState.writeName;
+				if(solr.get(fieldName) == null) {
+					solr.put(fieldName, new ArrayList<String>(Arrays.asList(nodeState.writeValue)) );
+				} else {
+					solr.get(fieldName).add(nodeState.writeValue);
+				}
+				
+			}
+
 			for(Node child : XmlUtil.getChildElements(node)) {
 				NodeState childState = new NodeState(child,nodeState);
 				
