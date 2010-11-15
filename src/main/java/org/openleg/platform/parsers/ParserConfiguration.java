@@ -108,7 +108,6 @@ public class ParserConfiguration {
 			
 			try {
 				String className = XmlUtil.getChildValue(processor,"class");
-				System.out.println("Loading: "+className);
 				Class<?> processorClass = Class.forName(className);
 				inputProcessor = InputProcessor.class.cast(processorClass.newInstance());
 				this.inputProcessors.put(XmlUtil.getChildValue(processor,"name"),inputProcessor);
@@ -131,7 +130,6 @@ public class ParserConfiguration {
 			
 			try {
 				String className = XmlUtil.getChildValue(flagHandler,"class");
-				System.out.println("Loading: "+className);
 				Class<?> flagHandlerClass = Class.forName(className);
 				treeFlagHandler = TreeFlagHandler.class.cast(flagHandlerClass.newInstance());
 				this.treeFlagHandlers.put(XmlUtil.getChildValue(flagHandler,"name"),treeFlagHandler);
@@ -154,7 +152,6 @@ public class ParserConfiguration {
 			
 			try {
 				String className = XmlUtil.getChildValue(flagHandler,"class");
-				System.out.println("Loading: "+className);
 				Class<?> flagHandlerClass = Class.forName(className);
 				nodeFlagHandler = NodeFlagHandler.class.cast(flagHandlerClass.newInstance());
 				this.nodeFlagHandlers.put(XmlUtil.getChildValue(flagHandler,"name"),nodeFlagHandler);

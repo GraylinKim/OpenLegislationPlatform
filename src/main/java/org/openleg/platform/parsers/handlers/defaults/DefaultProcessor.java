@@ -55,11 +55,7 @@ public class DefaultProcessor implements InputProcessor {
 		//Use flags to modify the state
 		applyNodeStateFlags(nodeState);
 		
-		if(node.getNodeName().equals("votes")) {
-			String breakPoint = "here";
-		}
 		Node output = null;
-		//System.out.println(nodeState.writeName+" has writeXML as:"+nodeState.writeXml);
 		if(nodeState.writeXml) {
 			
 			if(XmlUtil.isLeafNode(node)) {
@@ -75,7 +71,6 @@ public class DefaultProcessor implements InputProcessor {
 			} else {
 				
 				output = xml.createElement(nodeState.writeName);
-				System.out.println("Created element: "+nodeState.writeName);
 				for( Node child : XmlUtil.getChildElements(node)) {
 					NodeState childState = new NodeState(child,nodeState);
 					
@@ -92,8 +87,6 @@ public class DefaultProcessor implements InputProcessor {
 							((Element)output).setAttributeNode((Attr)outputChild);
 						else
 							output.appendChild(outputChild);
-					} else {
-						System.out.println("\tWhich has a null child");
 					}
 				}
 			}
