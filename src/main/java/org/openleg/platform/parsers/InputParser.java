@@ -1,5 +1,6 @@
 package org.openleg.platform.parsers;
 
+import org.apache.solr.common.SolrInputDocument;
 import org.openleg.platform.parsers.ParserConfiguration.Flag;
 import org.openleg.platform.parsers.handlers.InputProcessor;
 import org.openleg.platform.parsers.handlers.NodeFlagHandler;
@@ -9,6 +10,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,19 +25,49 @@ public class InputParser {
 				"src/main/resources/input/config.xml",
 				"src/main/resources/input/documents/a1800.schm"
 			);
+		System.out.println("Successfully loaded configuration");
+		InputParser input = new InputParser(new File("src/main/resources/input/documents/senatedocs/"),config);
 		
-		System.out.println("Lets get this started!");
-		new InputParser("src/main/resources/input/documents/a1800.xml",config);
+		ArrayList<SolrInputDocument> solrDocs = input.getSolrDocuments();
+		System.out.println(solrDocs.size()+" Documents Indexed");
 	}
 	
 	public ArrayList<ParsedDocument> documents;
 	
-	public InputParser(String filename, ParserConfiguration configuration) {
-		
+	public InputParser(File file, ParserConfiguration configuration) {
+		TreeSet<String> badFiles = new TreeSet<String>(Arrays.asList("A1562.xml,A1267.xml,A1544B.xml,A1137.xml,A10521.xml,A1267A.xml,A1005C.xml,A1520A.xml,A1106.xml,A1697A.xml,A1726B.xml,A1648.xml,A1557A.xml,A1595A.xml".split(",")));
 		documents = new ArrayList<ParsedDocument>();
 		
-		//Get the root of the input file and process it
-		processFileNode(XmlUtil.getXmlDocument(filename).getDocumentElement(),configuration,"");
+		HashMap<String,Long> processingTimes = new HashMap<String,Long>();
+		HashMap<String,Exception> BadFiles = new HashMap<String,Exception>();
+		
+		if(file.isDirectory()) {
+			for(File child : file.listFiles()) {
+				if(child.isDirectory())
+					continue;
+				if(badFiles.contains(child.getName()))
+					continue;
+				
+				System.out.println("Processing file: "+child.getName());
+				//Get the root of the input file and process it
+				try {
+					long start = System.nanoTime();
+					processFileNode(XmlUtil.getXmlDocument(child).getDocumentElement(),configuration,"");
+					long end = System.nanoTime();
+					processingTimes.put(child.getName(),end-start);
+				} catch (Exception e) {
+					BadFiles.put(child.getName(), e);
+				}
+			}
+		} else {
+			//Get the root of the input file and process it
+			processFileNode(XmlUtil.getXmlDocument(file).getDocumentElement(),configuration,"");
+		}
+		
+		long total = 0;
+		for(Long time : processingTimes.values())
+			total += time;
+		System.out.println("Average File Process time: "+((total/processingTimes.size())/1000000.0f)+" milliseconds");
 	}
 	
 	//Recursively search for document nodes to spawn ParsedDocuments from
@@ -51,4 +84,11 @@ public class InputParser {
 			processFileNode(child,configuration,schemaString);
 	}
 
+	public ArrayList<SolrInputDocument> getSolrDocuments() {
+		ArrayList<SolrInputDocument> solrDocs = new ArrayList<SolrInputDocument>();
+		for(ParsedDocument doc : documents) {
+			solrDocs.add(doc.toSolrDocument());
+		}
+		return solrDocs;
+	}
 }

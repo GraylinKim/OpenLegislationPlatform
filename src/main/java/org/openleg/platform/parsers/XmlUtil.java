@@ -17,10 +17,6 @@ import org.xml.sax.SAXException;
 
 public class XmlUtil {
 	
-	public static void main(String[] args) {
-		XmlUtil.printDocument(XmlUtil.getXmlDocument("/home/graylin/RCOS/input/ADAMS-2009.xml"));
-	}
-	
 	public static Document getXmlDocument(String filename) {
 		return getXmlDocument(new File(filename));
 	}
@@ -51,11 +47,7 @@ public class XmlUtil {
 	}
 	
 	public static void printDocument(Document doc) {
-		printNode((Node)doc.getDocumentElement());
-	}
-	
-	public static void printNode(Node root) {
-		printNode(root,0);
+		printNode((Node)doc.getDocumentElement(),0);
 	}
 	
 	public static void printNode(Node root,int indent) {
@@ -87,6 +79,43 @@ public class XmlUtil {
 		}
 		
 
+	}
+	
+	public static String toString(Document doc) {
+		return toString((Node)doc.getDocumentElement(),0);
+	}
+	
+	public static String toString(Node root,int indent) {
+		String output = "";
+		
+		String prefix = "";
+		for(int n = 0; n < indent; n++)
+			prefix+="  ";
+		
+		if(root.getNodeType()==Node.TEXT_NODE ) {
+			if(!root.getNodeValue().trim().isEmpty()) {
+				output += prefix+root.getNodeValue() + "\n";
+			}
+		} else {
+			String tag = root.getNodeName();
+			NodeList children = root.getChildNodes();
+			
+			if(children.getLength()==0) {
+				output += prefix+"<"+tag+"></"+tag+">" + "\n";
+			}
+			if(children.getLength()==1 && children.item(0).getNodeType()==Node.TEXT_NODE)
+				output += prefix+"<"+tag+">"+children.item(0).getNodeValue().trim()+"</"+tag+">" + "\n";
+			else {
+				output += prefix+"<"+root.getNodeName()+">" + "\n";
+				for(int n = 0; n< children.getLength(); n++) {
+					output += toString(children.item(n),indent+1);
+				}
+				output += prefix+"</"+root.getNodeName()+">" + "\n";
+			}
+
+		}
+		
+		return output;
 	}
 	
 	public static Document buildDocument(Document input) {

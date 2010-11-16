@@ -1,9 +1,10 @@
 package org.openleg.platform.parsers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.TreeSet;
 
+import org.apache.solr.common.SolrInputDocument;
 import org.openleg.platform.parsers.ParserConfiguration;
 import org.openleg.platform.parsers.ParserConfiguration.Flag;
 import org.openleg.platform.parsers.handlers.InputProcessor;
@@ -15,13 +16,13 @@ import org.w3c.dom.Node;
 public class ParsedDocument {
 	
 	public Document xml;
-	protected HashMap<String,ArrayList<String>> solr;
+	public HashMap<String,ArrayList<String>> solr;
 	
+	protected HashMap<String,ArrayList<Flag>> treeFlags;
+	protected HashMap<String,HashMap<String,Flag>> nodeFlags;
 	protected HashMap<String,InputProcessor> inputProcessors;
 	protected HashMap<String,TreeFlagHandler> treeFlagHandlers;
 	protected HashMap<String,NodeFlagHandler> nodeFlagHandlers;
-	protected HashMap<String,ArrayList<Flag>> treeFlags;
-	protected HashMap<String,HashMap<String,Flag>> nodeFlags;
 	
 	public ParsedDocument(Node root, ParserConfiguration configuration) {
 		
@@ -38,18 +39,29 @@ public class ParsedDocument {
 		nodeFlags = configuration.nodeFlags.get(root.getNodeName());
 		treeFlags = configuration.treeFlags.get(root.getNodeName());		
 
-		//Process the root element and append the rests to the output tree
+		//Get the initial state and processor
 		NodeState initialState = new NodeState(root,this);
 		InputProcessor processor = initialState.nodeProcessor();
 		
+		//Build the XML and SOLR documents
 		processor.processSolr(root,initialState,solr);
 		xml.appendChild(processor.processXml(root, initialState, xml));
-		XmlUtil.printNode(xml.getDocumentElement());
-		for(String key : new TreeSet<String>(solr.keySet())) {
-			for(String value : solr.get(key)) {
-				System.out.println(key+": "+value);
-			}
+		solr.put("xml", new ArrayList<String>(Arrays.asList(XmlUtil.toString(xml))));
+		
+		/*
+		System.out.println(xml.getDocumentElement().getNodeName()+" Document Fields:");
+		System.out.println("========================");
+		for(String key : solr.keySet()) {
+			if(!key.equals("xml"))
+				System.out.println(key+": "+solr.get(key));
 		}
+		System.out.println("");
+		
+		System.out.println(xml.getDocumentElement().getNodeName()+" Document XML:");
+		System.out.println("========================");
+		System.out.println(solr.get("xml").get(0));
+		System.out.println("\n\n");
+		*/
 	}
 	
 	public TreeFlagHandler getTreeFlagHandler(String flag) {
@@ -74,48 +86,13 @@ public class ParsedDocument {
 		return new HashMap<String,Flag>();
 	}
 	
-	/*
-	public ParsedDocument(Node inputRoot, ParserConfiguration configuration) {
-		
-		//Create the internal documents
-		xml = XmlUtil.newXmlDocument();
-		solr = new HashMap<String,ArrayList<String>>();
-
-		//Copy the configuration over
-		inputProcessors = configuration.inputProcessors;
-		treeFlagHandlers = configuration.treeFlagHandlers;
-		nodeFlagHandlers = configuration.nodeFlagHandlers;
-		
-		//Get the flag maps for this document
-		nodeFlags = configuration.nodeFlags.get(inputRoot.getNodeName());
-		treeFlags = configuration.treeFlags.get(inputRoot.getNodeName());		
-
-		//Process the root element and append the rests to the output tree
-		String schemaString = inputRoot.getNodeName();
-		Node outputRoot = getNodeProcessor(schemaString).processNode(inputRoot,"",this);
-		xml.appendChild(outputRoot);
-	}
-	
-	public Node createElement(String name) { return xml.createElement(name); }
-	
-	
-	public TreeFlagHandler getTreeFlagHandler(String flag) { return treeFlagHandlers.get(flag); }
-	public NodeFlagHandler getNodeFlagHandler(String flag) { return nodeFlagHandlers.get(flag); }
-	
-	public ArrayList<Flag> getTreeFlags(String schemaString) { return treeFlags.get(schemaString); }
-	public HashMap<String,Flag> getNodeFlags(String schemaString) { return nodeFlags.get(schemaString); }
-	
-	public NodeState getNodeState(Node localNode, String schemaString) { return new NodeState(localNode,schemaString,this);	}
-	
-	public void addSolrField(String prefix, String name, String value) {
-		name = prefix+name;
-		ArrayList<String> values = solr.get(name);
-		if(solr.get(name) == null) {
-			values = new ArrayList<String>();
-			solr.put(name, values);
+	public SolrInputDocument toSolrDocument() {
+		SolrInputDocument solrDoc = new SolrInputDocument();
+		for( String key : solr.keySet()) {
+			for( String value : solr.get(key)) {
+				solrDoc.addField(key, value);
+			}
 		}
-		values.add(value);
-		solr.put(name, values);
+		return solrDoc;
 	}
-	*/
 }
