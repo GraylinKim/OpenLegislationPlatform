@@ -65,9 +65,10 @@ public class XmlUtil {
 			
 			if(children.getLength()==0) {
 				System.out.println(prefix+"<"+tag+"></"+tag+">");
-			}
-			if(children.getLength()==1 && children.item(0).getNodeType()==Node.TEXT_NODE)
+				
+			} else if (children.getLength()==1 && children.item(0).getNodeType()==Node.TEXT_NODE)
 				System.out.println(prefix+"<"+tag+">"+children.item(0).getNodeValue().trim()+"</"+tag+">");
+			
 			else {
 				System.out.println(prefix+"<"+root.getNodeName()+">");
 				for(int n = 0; n< children.getLength(); n++) {

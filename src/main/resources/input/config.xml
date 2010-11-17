@@ -9,10 +9,6 @@
 		<class>org.openleg.platform.parsers.handlers.defaults.SolrContainerFlagHandler</class>
 	</nodeFlagHandler>
 	<nodeFlagHandler>
-		<name>solr_value</name>
-		<class>org.openleg.platform.parsers.handlers.defaults.SolrValueFlagHandler</class>
-	</nodeFlagHandler>
-				<nodeFlagHandler>
 		<name>solr_exclude</name>
 		<class>org.openleg.platform.parsers.handlers.defaults.SolrExcludeFlagHandler</class>
 	</nodeFlagHandler>
